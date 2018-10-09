@@ -6,8 +6,9 @@ class UsersController < ApplicationController
       end
       user_id = params[:id]
       response = conn.get("users/#{user_id}")
-      binding.pry
-      @user = JSON.parse(response.body, symbolize_names: true)[:results]
+      # binding.pry
+       attributes = JSON.parse(response.body, symbolize_names: true)
+       @user = User.new(attributes)
   end
 
 
