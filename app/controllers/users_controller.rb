@@ -1,7 +1,12 @@
 class UsersController < ApplicationController
 
   def show
-    User.find(params[:id])
+      conn = Faraday.new(url: "http://localhost:3000/api/v1") do |faraday|
+        faraday.adapter Faraday.default_adapter
+      end
+      user_id = params[:id]
+      response = conn.get("users/#{user_id}")
+      @user = JSON.parse(response.body, symbolize_names: true)[:results]
   end
 
 
