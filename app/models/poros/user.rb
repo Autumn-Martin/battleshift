@@ -4,7 +4,5 @@ class User
     @id         =attributes[:id]
     @name       = attributes[:name]
     @email      = attributes[:email]
-
-
-
+  end
 end
