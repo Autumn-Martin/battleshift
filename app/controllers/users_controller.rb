@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
   def show
+    @user_facade = UserFacade.new(params[:id])
       # conn = Faraday.new(url: GetUrl.by_environment) do |faraday|
       #   faraday.adapter Faraday.default_adapter
       # end
@@ -10,6 +11,7 @@ class UsersController < ApplicationController
       # attributes_hash = JSON.parse(response.body, symbolize_names: true)
       # @user = User.new(attributes_hash)
 
+      user_id = params[:id]
       user_attributes = get_attributes("users/#{user_id}")
 
       @user = User.new(user_attributes)
