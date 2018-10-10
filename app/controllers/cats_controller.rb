@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class CatsController < ApplicationController
 
   def show
       # conn = Faraday.new(url: GetUrl.by_environment) do |faraday|
@@ -9,10 +9,10 @@ class UsersController < ApplicationController
       #
       # attributes_hash = JSON.parse(response.body, symbolize_names: true)
       # @user = User.new(attributes_hash)
-    
+
       user_attributes = get_attributes("users/#{user_id}")
 
-      @user = User.new(user_attributes)
+      user = User.new(user_attributes)
 
   end
 
