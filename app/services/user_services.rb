@@ -14,7 +14,7 @@ class UserServices
   private
     def conn
       # binding.pry
-      Faraday.new(url: ENV["root-url"]) do |faraday|
+      Faraday.new(url: ENV["root_url"]) do |faraday|
         faraday.adapter Faraday.default_adapter
       end
     end
