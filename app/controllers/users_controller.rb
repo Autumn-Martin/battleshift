@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   def show
-      conn = Faraday.new(url: "http://localhost:3000/api/v1") do |faraday| #change to GetUrl.by_environment later
+      conn = Faraday.new(url: GetUrl.by_environment) do |faraday|
         faraday.adapter Faraday.default_adapter
       end
       user_id = params[:id]
