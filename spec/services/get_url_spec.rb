@@ -5,21 +5,21 @@ describe GetUrl do
     subject { described_class.by_environment }
 
     context 'test env' do
-      before { Rails.env.stub(:test? => true)}
+      before { allow(Rails.env).to receive(:test?).and_return(true)}
       it 'returns local url' do
         expect(subject).to eq 'http://localhost:3000/api/v1'
       end
     end
 
     context 'development env' do
-      before { Rails.env.stub(:development? => true) }
+      before { allow(Rails.env).to receive(:development?).and_return(true)}
       it 'returns local url' do
         expect(subject).to eq 'http://localhost:3000/api/v1'
       end
     end
 
     context 'production env' do
-      before { Rails.env.stub(:production? => true)}
+      before { allow(Rails.env).to receive(:production?).and_return(true)}
       it 'returns heroku url' do
         expect(subject).to eq 'https://limitless-taiga-55796.herokuapp.com/'
       end
