@@ -1,4 +1,4 @@
-class ApiUsersController < ApplicationController
+class UsersController < ApplicationController
 
   def show
       # conn = Faraday.new(url: GetUrl.by_environment) do |faraday|
@@ -12,7 +12,7 @@ class ApiUsersController < ApplicationController
 
       user_attributes = get_attributes("users/#{user_id}")
 
-      @api_user = ApiUser.new(user_attributes)
+      @user = User.new(user_attributes)
 
   end
 

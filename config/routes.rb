@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   # resources :users, only: [:show]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   # resources :users, only: [:show]
-  get '/users/:id', to: 'api_users#show'
+  get '/users/:id', to: 'users#show'
   namespace :api do
     namespace :v1 do
       resources :games, only: [:show] do
