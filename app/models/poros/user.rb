@@ -1,4 +1,4 @@
-class User
+class ApiUser
   attr_reader :id, :name, :email
   def initialize(attributes = {})
     @id         =attributes[:id]

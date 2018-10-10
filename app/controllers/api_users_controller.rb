@@ -12,7 +12,7 @@ class ApiUsersController < ApplicationController
 
       user_attributes = get_attributes("users/#{user_id}")
 
-      @api_user = User.new(user_attributes)
+      @api_user = ApiUser.new(user_attributes)
 
   end
 
