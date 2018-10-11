@@ -3,15 +3,9 @@ class UserServices
     @id = id
   end
 
-  # def name
-  #   get_attributes[:name]
-  # end
-  #
-  # def email
-  #   get_attributes[:email]
-  # end
-  #delete these
-
+  def get_user
+    get_attributes(conn.get("/api/v1/users/#{@id}"))
+  end
 
   private
     def conn
@@ -21,7 +15,6 @@ class UserServices
     end
 
     def get_attributes(response)
-      JSON.parse(conn.get(response.body, symbolize_names: true)
+      JSON.parse(response.body, symbolize_names: true)
     end
-    #make unprivate
 end
