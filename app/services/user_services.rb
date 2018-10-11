@@ -10,6 +10,7 @@ class UserServices
   # def email
   #   get_attributes[:email]
   # end
+  #delete these
 
 
   private
@@ -22,4 +23,5 @@ class UserServices
     def get_attributes(response)
       JSON.parse(conn.get(response.body, symbolize_names: true)
     end
+    #make unprivate
 end

@@ -20,8 +20,11 @@ class UserFacade
   # def user_grab
   #   services = UserServices.new("/api/v1/users/#{@id}")
   #   services.get_attributes
-  #
+  #notes 
   # end
+
+  #def users_grab
+  #end
 
   private
     ### dream code ###
