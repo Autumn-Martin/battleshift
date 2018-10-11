@@ -4,7 +4,7 @@ class UserFacade
   end
 
   def user_name
-    user.name 
+    user.name
   end
 
   def user_email
@@ -17,6 +17,6 @@ class UserFacade
     end
 
     def user_data
-      @user_data ||= UserServices.new(@id).get_user
+      @user_data ||= UserService.new(@id).get_user
     end
 end

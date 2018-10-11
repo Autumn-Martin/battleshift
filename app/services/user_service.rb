@@ -1,4 +1,4 @@
-class UserServices
+class UserService
   def initialize(id = nil)
     @id = id
   end
