@@ -1,23 +1,15 @@
 class UserFacade
-  def initialize(id = nil) #refactor remove
+  def initialize(id = nil)
     @id = id
   end
 
-  def find(id)  #refactor include
+  def find(id)
     user_data = UserService.new(id).get_user
     DisplayUser.new(user_data)
   end
 
-  # def user_name #refactor move to DisplayUser
-  #   user.name
-  # end
-  #
-  # def user_email #refactor move to DisplayUser
-  #   user.email
-  # end
-
   def all
-    users.map do |user_data| #refactor include
+    users.map do |user_data|
       DisplayUser.new(user_data)
     end
   end
@@ -27,7 +19,7 @@ class UserFacade
       @user ||= User.new(user_data)
     end
 
-    def users # refactor include
+    def users
       @users ||= UserService.new.get_users
     end
 
