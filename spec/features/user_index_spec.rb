@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'user index' do
-   it 'should show guest the user info' do
+   it 'should show guest all users info' do
 
      # user = User.create!(name: "Josiah Bartlet", email: "jbartlet@example.com")
      # binding.pry

@@ -7,6 +7,10 @@ class UserService
     get_attributes(conn.get("/api/v1/users/#{@id}"))
   end
 
+  def get_users # new for index method
+    get_attributes(conn.get("/api/v1/users"))
+  end
+
   private
     def conn
       Faraday.new(url: ENV["root_url"]) do |faraday|
