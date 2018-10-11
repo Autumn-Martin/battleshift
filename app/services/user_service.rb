@@ -1,10 +1,14 @@
-class UserServices
+class UserService
   def initialize(id = nil)
     @id = id
   end
 
   def get_user
     get_attributes(conn.get("/api/v1/users/#{@id}"))
+  end
+
+  def get_users
+    get_attributes(conn.get("/api/v1/users"))
   end
 
   private

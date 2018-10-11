@@ -1,6 +1,13 @@
 module Api
   module V1
     class GamesController < ActionController::API
+      rescue_from ActiveRecord::RecordNotFound, with: :render_400
+      # find returns ActiveRecord::RecordNotFound when the record passed in as parameter does not exist
+      # rescue_from is a rails feature packaged in the ActiveSupport::Rescuable module
+      def render_400
+        render status: 400
+      end
+
       def show
         game = Game.find(params[:id])
         render json: game

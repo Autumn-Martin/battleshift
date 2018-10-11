@@ -3,12 +3,15 @@ class UserFacade
     @id = id
   end
 
-  def user_name
-    user.name 
+  def find(id)
+    user_data = UserService.new(id).get_user
+    DisplayUser.new(user_data)
   end
 
-  def user_email
-    user.email
+  def all
+    users.map do |user_data|
+      DisplayUser.new(user_data)
+    end
   end
 
   private
@@ -16,7 +19,11 @@ class UserFacade
       @user ||= User.new(user_data)
     end
 
+    def users
+      @users ||= UserService.new.get_users
+    end
+
     def user_data
-      @user_data ||= UserServices.new(@id).get_user
+      @user_data ||= UserService.new(@id).get_user
     end
 end
