@@ -4,4 +4,8 @@ class UsersController < ApplicationController
     @user_facade = UserFacade.new(params[:id])
   end
 
+  def index
+    @user_facade = UserFacade.new
+  end
+
 end
