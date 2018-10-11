@@ -4,27 +4,19 @@ class UserFacade
   end
 
   def user_name
-    # user.name ## dream code
-
-    # -----------
-    UserServices.new("/api/v1/users/#{@id}").name
+    user.name 
   end
 
   def user_email
-    # user.email ## dream code
-
-    # -----------
-    UserServices.new("/api/v1/users/#{@id}").email
+    user.email
   end
 
   private
-    ### dream code ###
-    # def user
-    #   @user ||= User.new(user_data)
-    # end
-    #
-    # def user_data
-    #   @user_data ||= UserServices.new(@id).user_data
-    # end
+    def user
+      @user ||= User.new(user_data)
+    end
 
+    def user_data
+      @user_data ||= UserServices.new(@id).get_user
+    end
 end
