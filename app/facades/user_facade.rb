@@ -11,20 +11,26 @@ class UserFacade
   end
 
   def user_email
-    user.email ## dream code
+    usergrab.email ## dream code
 
     # -----------
     UserServices.new("/api/v1/users/#{@id}").email
   end
+  #
+  # def user_grab
+  #   services = UserServices.new("/api/v1/users/#{@id}")
+  #   services.get_attributes
+  #
+  # end
 
   private
     ### dream code ###
     def user
-      @user ||= User.new(user_attributes)
+      @user ||= User.new(user_data)
     end
 
-    def user_attributes
-      @user_data ||= UserServices.new(@id).get_attributes
+    def user_data
+      @user_data ||= UserServices.new(@id).user_data
     end
 
 end
