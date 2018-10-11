@@ -5,10 +5,11 @@ describe 'user index' do
 
      # user = User.create!(name: "Josiah Bartlet", email: "jbartlet@example.com")
      # binding.pry
-     user = User.new(name: "Han Solo", email: "hansolo@email.com")
 
      visit "/users"
      expect(page).to have_content("Josiah Bartlet")
      expect(page).to have_content("jbartlet@example.com")
+     expect(page).to have_content("Josh Lyman")
+     expect(page).to have_content("jlyman@example.com")
   end
 end
