@@ -9,11 +9,10 @@ module Api
         render json: User.find(params[:id])
       end
 
-      # def update
-      #   # binding.pry
-      #   user = User.find(params[:id])
-      #   user.update(email: params[:user_email])
-      # end
+      def update
+        user = User.find(params[:id])
+        user.update(email: params[:email])
+      end
     end
   end
 end

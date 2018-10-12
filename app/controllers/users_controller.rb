@@ -10,11 +10,10 @@ class UsersController < ApplicationController
 
   def edit
     @user_to_edit = UserFacade.new.find(params[:id])
-    # binding.pry
   end
 
   def update
-    @user = UserService.new(params[:id]).update_user(email: params[:user_email])
+    @user = UserService.new(params[:id]).update_user(params[:user_email])
     # @user.update(email: params[:user_email])
 
     redirect_to users_path

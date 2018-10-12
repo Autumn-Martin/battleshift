@@ -7,10 +7,10 @@ class UserService
     get_attributes(conn.get("/api/v1/users/#{@id}"))
   end
 
-  def update_user(hash)
-
+  def update_user(email)
     # binding.pry
-    get_attributes(conn.patch("/api/v1/users/#{@id}", hash))
+
+    conn.patch("/api/v1/users/#{@id}", email: email)
     # user = User.create(user_params)
     # user.update(email: :user_email)
   end
@@ -21,9 +21,7 @@ class UserService
 
   private
     def conn
-      Faraday.new(url: ENV["root_url"]) do |faraday|
-        faraday.adapter Faraday.default_adapter
-      end
+      Faraday.new(url: ENV["root_url"])
     end
 
     def get_attributes(response)
