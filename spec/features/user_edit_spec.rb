@@ -22,7 +22,7 @@ describe 'user edit' do
    it 'should edit a users info' do
 
      visit "/users"
-
+     # save_and_open_page
      within(first(".user")) do
        click_on "Edit"
      end
@@ -37,6 +37,6 @@ describe 'user edit' do
 
      expect(current_path).to eq("/users")
      expect(page).to have_content("Successfully updated Josiah Bartlet.")
-     # expect(page).to have_content("josiah@example.com")
+     expect(page).to have_content("josiah@example.com")
   end
 end
