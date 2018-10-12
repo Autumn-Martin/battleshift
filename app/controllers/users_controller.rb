@@ -12,4 +12,8 @@ class UsersController < ApplicationController
 
   end
 
+  def update
+    flash["alert"] = "Successfully updated Josiah Bartlet."
+    redirect_to users_path
+  end
 end

@@ -30,5 +30,13 @@ describe 'user edit' do
      expect(current_path).to eq("/users/1/edit")
      expect(page).to have_content("User email")
      expect(page).to have_button("Save")
+
+     fill_in :user_email, with: "josiah@example.com"
+
+     click_on "Save"
+
+     expect(current_path).to eq("/users")
+     expect(page).to have_content("Successfully updated Josiah Bartlet.")
+     expect(page).to have_content("josiah@example.com")
   end
 end
