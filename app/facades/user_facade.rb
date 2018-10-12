@@ -14,6 +14,10 @@ class UserFacade
     end
   end
 
+  def user_data
+    @user_data ||= UserService.new(@id).get_user
+  end
+
   private
     def user
       @user ||= User.new(user_data)
