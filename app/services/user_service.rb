@@ -7,12 +7,13 @@ class UserService
     get_attributes(conn.get("/api/v1/users/#{@id}"))
   end
 
-  # def update_user(hash)
-  #   # binding.pry
-  #   get_attributes(conn.patch("/api/v1/users/#{@id}", hash))
-  #   # user = User.create(user_params)
-  #   # user.update(email: :user_email)
-  # end
+  def update_user(hash)
+
+    # binding.pry
+    get_attributes(conn.patch("/api/v1/users/#{@id}", hash))
+    # user = User.create(user_params)
+    # user.update(email: :user_email)
+  end
 
   def get_users
     get_attributes(conn.get("/api/v1/users"))

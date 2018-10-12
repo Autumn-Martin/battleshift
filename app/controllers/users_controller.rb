@@ -13,13 +13,13 @@ class UsersController < ApplicationController
     # binding.pry
   end
 
-  # def update
-  #   @user = UserService.new(params[:id]).update_user(email: params[:user_email])
-  #   # @user.update(email: params[:user_email])
-  #
-  #   redirect_to users_path
-  #   flash["alert"] = "Successfully updated Josiah Bartlet."
-  # end
+  def update
+    @user = UserService.new(params[:id]).update_user(email: params[:user_email])
+    # @user.update(email: params[:user_email])
+
+    redirect_to users_path
+    flash["alert"] = "Successfully updated Josiah Bartlet."
+  end
 
   private
   def user_params
