@@ -8,11 +8,7 @@ class UserService
   end
 
   def update_user(email)
-    # binding.pry
-
     conn.patch("/api/v1/users/#{@id}", email: email)
-    # user = User.create(user_params)
-    # user.update(email: :user_email)
   end
 
   def get_users

@@ -14,7 +14,6 @@ class UsersController < ApplicationController
 
   def update
     @user = UserService.new(params[:id]).update_user(params[:user_email])
-    # @user.update(email: params[:user_email])
 
     redirect_to users_path
     flash["alert"] = "Successfully updated Josiah Bartlet."
