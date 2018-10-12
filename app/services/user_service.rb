@@ -7,9 +7,10 @@ class UserService
     get_attributes(conn.get("/api/v1/users/#{@id}"))
   end
 
-  def edit_user
-
-    get_attributes(conn.patch("/api/v1/users/#{@id}"))
+  def update_user
+    user_params = get_attributes(conn.get("/api/v1/users/#{@id}"))
+    user = User.create(user_params)
+    user.update(email: :user_email)
   end
 
   def get_users

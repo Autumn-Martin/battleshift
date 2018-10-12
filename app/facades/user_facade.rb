@@ -8,10 +8,18 @@ class UserFacade
     DisplayUser.new(user_data)
   end
 
+  # def update
+  # end
+
   def all
     users.map do |user_data|
       DisplayUser.new(user_data)
     end
+  end
+
+  def user_data
+    @user_data ||= UserService.new(@id).get_user
+    # binding.pry
   end
 
   private
@@ -25,5 +33,6 @@ class UserFacade
 
     def user_data
       @user_data ||= UserService.new(@id).get_user
+      # binding.pry
     end
 end

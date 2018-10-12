@@ -14,12 +14,16 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = UserFacade.new.find(params[:id])
-
-    UserService.new(params[:id]).edit_user
-
-    flash["alert"] = "Successfully updated Josiah Bartlet."
+    @user = UserService.new(params[:id]).update_user
+    # @user.update(email: params[:user_email])
 
     redirect_to users_path
+    flash["alert"] = "Successfully updated Josiah Bartlet."
   end
+
+  private
+  def user_params
+    params.permit(:user_email, :id)
+  end
+
 end
