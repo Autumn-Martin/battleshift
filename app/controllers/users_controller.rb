@@ -19,6 +19,10 @@ class UsersController < ApplicationController
     flash["alert"] = "Successfully updated Josiah Bartlet."
   end
 
+  def new
+    @user = User.new 
+  end
+
   private
   def user_params
     params.permit(:user_email, :id)
