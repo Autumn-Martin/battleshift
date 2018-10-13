@@ -1,31 +1,16 @@
-# Title: Build PATCH /api/v1/users/:id
-#
-# API should only support changing a users's email address
-# Title: Edit a user's email address (dogfooding PATCH /api/v1/users/:id)
-#
-# Background: There is a user stored in the database with an id of 1, name of Josiah Bartlet, email of jbartlet@example.com
-#
-# As a guest user
-# When I visit "/users"
-# And I click on `Edit` for Josiah Bartlet
-# Then I should be on "/users/1/edit"
-#
-# When I fill in the email field with "josiah@example.com"
-# And I click "Save"
-# Then I should be on "/users"
-# And I should see a flash message that says "Successfully updated Josiah Bartlet."
-# And I should should see Josiah Bartlet's email show up in the list as "josiah@example.com"
-
 require 'rails_helper'
 
 describe 'user edit' do
    it 'should edit a users info' do
-
-     visit "/users"
-     # save_and_open_page
-     within(first(".user")) do
-       click_on "Edit"
+     VCR.use_cassette("before_edit_users") do
+       visit "/users"
      end
+     
+    VCR.use_cassette("edit_user") do
+      within(first(".user")) do
+        click_on "Edit"
+      end
+    end
 
      expect(current_path).to eq("/users/1/edit")
      expect(page).to have_content("User email")
@@ -33,7 +18,11 @@ describe 'user edit' do
 
      fill_in :user_email, with: "josiah@example.com"
 
-     click_on "Save"
+     VCR.use_cassette("update_users") do
+       click_on "Save"
+     end
+
+     # click_on "Save"
 
      expect(current_path).to eq("/users")
      expect(page).to have_content("Successfully updated Josiah Bartlet.")
