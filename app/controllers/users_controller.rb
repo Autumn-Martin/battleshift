@@ -1,3 +1,4 @@
+require 'securerandom'
 class UsersController < ApplicationController
 
   def show
@@ -26,6 +27,8 @@ class UsersController < ApplicationController
   def create
     @user = User.create(user_params)
     if @user.save
+      api_key = make_api_key
+      
       # update api key
       # UserActivatorMailer.message(@user).deliver_now
       # session[:user_id] = @user.id
@@ -36,12 +39,16 @@ class UsersController < ApplicationController
     else
       flash.now.alert = "Please try again"
       render :new
-    end 
+    end
   end
 
   private
   def user_params
     params.require(:user).permit(:name, :email, :id, :password, :password_confirmation)
+  end
+
+  def make_api_key
+    p SecureRandom.urlsafe_base64
   end
 
 end
