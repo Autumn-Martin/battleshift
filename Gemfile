@@ -13,6 +13,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'active_model_serializers', '0.10'
 gem 'faraday'
 gem 'figaro'
+gem 'bcrypt'
 
 
 
