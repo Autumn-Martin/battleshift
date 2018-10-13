@@ -13,6 +13,7 @@ module Api
         user = User.find(params[:id])
         user.update(email: params[:email])
       end
+
     end
   end
 end

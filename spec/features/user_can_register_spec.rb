@@ -4,6 +4,7 @@ describe 'As a guest user' do
   it 'should be able to register a user' do
     visit "/"
     click_on "Register"
+    # save_and_open_page
     expect(current_path).to eq("/register")
     fill_in :user_email, with: "toby@whitehouse.com"
     fill_in :user_name, with: "Toby"
