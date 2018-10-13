@@ -5,7 +5,7 @@ describe 'user edit' do
      VCR.use_cassette("before_edit_users") do
        visit "/users"
      end
-     
+
     VCR.use_cassette("edit_user") do
       within(first(".user")) do
         click_on "Edit"
