@@ -47,7 +47,7 @@ class UsersController < ApplicationController
   end
 
   def make_api_key
-    p SecureRandom.urlsafe_base64
+    SecureRandom.urlsafe_base64
   end
 
 end
