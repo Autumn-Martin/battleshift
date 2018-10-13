@@ -27,11 +27,12 @@ class UsersController < ApplicationController
     @user = User.create(user_params)
     redirect_to dashboard_path
     flash["notice"] = "Logged in as #{@user.name}"
+    flash["alert"] = "This account has not yet been activated. Please check your email"
   end
 
   private
   def user_params
-    params.permit(:name, :email, :id, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :id, :password, :password_confirmation)
   end
 
 end
