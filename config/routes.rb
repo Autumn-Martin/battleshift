@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   root to: 'welcome#index'
 
+  resources :register, only: [:new, :create]
+
   resources :users, only: [:show, :index, :edit, :update]
 
   namespace :api do
