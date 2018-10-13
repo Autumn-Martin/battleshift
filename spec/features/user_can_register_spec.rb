@@ -13,7 +13,7 @@ describe 'As a guest user' do
     click_on "Submit"
     expect(current_path).to eq("/dashboard")
     expect(page).to have_content("Logged in as Toby")
-    expect(page).to have_content("This account has not yet been activated. Please check your email.")
+    expect(page).to have_content( )
   end
 end
 # As a guest user
