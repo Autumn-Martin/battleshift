@@ -15,28 +15,28 @@
 # Then I should be on "/users"
 # And I should see a flash message that says "Successfully updated Josiah Bartlet."
 # And I should should see Josiah Bartlet's email show up in the list as "josiah@example.com"
-
-require 'rails_helper'
-
-describe 'user edit' do
-   it 'should edit a users info' do
-
-     visit "/users"
-     # save_and_open_page
-     within(first(".user")) do
-       click_on "Edit"
-     end
-
-     expect(current_path).to eq("/users/1/edit")
-     expect(page).to have_content("User email")
-     expect(page).to have_button("Save")
-
-     fill_in :user_email, with: "josiah@example.com"
-
-     click_on "Save"
-
-     expect(current_path).to eq("/users")
-     expect(page).to have_content("Successfully updated Josiah Bartlet.")
-     expect(page).to have_content("josiah@example.com")
-  end
-end
+# 
+# require 'rails_helper'
+#
+# describe 'user edit' do
+#    it 'should edit a users info' do
+#
+#      visit "/users"
+#      # save_and_open_page
+#      within(first(".user")) do
+#        click_on "Edit"
+#      end
+#
+#      expect(current_path).to eq("/users/1/edit")
+#      expect(page).to have_content("User email")
+#      expect(page).to have_button("Save")
+#
+#      fill_in :user_email, with: "josiah@example.com"
+#
+#      click_on "Save"
+#
+#      expect(current_path).to eq("/users")
+#      expect(page).to have_content("Successfully updated Josiah Bartlet.")
+#      expect(page).to have_content("josiah@example.com")
+#   end
+# end
