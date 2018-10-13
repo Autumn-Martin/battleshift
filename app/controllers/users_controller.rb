@@ -28,8 +28,7 @@ class UsersController < ApplicationController
     @user = User.create(user_params)
     if @user.save
       api_key = make_api_key
-      
-      # update api key
+      @user.update(api_key: api_key) # update api key
       # UserActivatorMailer.message(@user).deliver_now
       # session[:user_id] = @user.id
 
