@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show, :index, :edit, :update, :create]
   get 'users/:id/activate', to: "users#activate", as: "activate_user"
+  post 'users/:id/activate', to: "activation#update", as: "activation"
 
   namespace :api do
     namespace :v1 do

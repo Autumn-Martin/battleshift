@@ -1,0 +1,13 @@
+<div class="user-form-container container">
+  Please enter your API key to activate your account:
+  <div class="user-form">
+  <%= form_tag activation_url(@user[:id], host: ENV["root_url"]) do %>
+    <div class="form-secton">
+      <%= label_tag :api_key %>
+      <%= text_field_tag :api_key %>
+    </div>
+    <div class="form-section">
+      <%= submit_tag %>
+    </div>
+  <% end %>
+</div>
