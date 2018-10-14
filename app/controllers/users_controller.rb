@@ -30,7 +30,7 @@ class UsersController < ApplicationController
       api_key = make_api_key
       @user.update(api_key: api_key) # update api key
 
-      UserActivatorMailer.inform(@user, params[:email]).deliver_now
+      UserActivatorMailer.inform(@user).deliver_now
       session[:user_id] = @user.id
       redirect_to dashboard_path
 
