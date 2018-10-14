@@ -30,7 +30,9 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = false
 
   config.action_mailer.perform_caching = false
-
+  # In the development environment, send emails to the Mailcatcher port
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailder.smtp_settings = { address: "localhost", port: 1025 }
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
