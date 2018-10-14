@@ -25,20 +25,21 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.create(user_params)
-    if @user.save
-      api_key = make_api_key
-      @user.update(api_key: api_key) # update api key
-      UserActivatorMailer.inform(@user).deliver_now
-      session[:user_id] = @user.id
-      redirect_to dashboard_path
+   @user = User.create(user_params)
+   if @user.save
+     api_key = make_api_key
+     @user.update(api_key: api_key) # update api key
 
-      flash["notice"] = "Logged in as #{@user.name}"
-      flash["alert"] = "This account has not yet been activated. Please check your email"
-    else
-      flash.now.alert = "Please try again"
-      render :new
-    end
+     UserActivatorMailer.inform(@user).deliver_now
+     session[:user_id] = @user.id
+     redirect_to dashboard_path
+
+     flash["notice"] = "Logged in as #{@user.name}"
+     flash["alert"] = "This account has not yet been activated. Please check your email"
+   else
+     flash.now.alert = "Please try again"
+     render :new
+   end
   end
 
   private
