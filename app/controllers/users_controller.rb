@@ -31,8 +31,8 @@ class UsersController < ApplicationController
       @user.update(api_key: api_key) # update api key
       # UserActivatorMailer.message(@user).deliver_now
       # session[:user_id] = @user.id
-
       redirect_to dashboard_path
+
       flash["notice"] = "Logged in as #{@user.name}"
       flash["alert"] = "This account has not yet been activated. Please check your email"
     else
