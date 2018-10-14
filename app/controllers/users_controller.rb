@@ -28,7 +28,7 @@ class UsersController < ApplicationController
     @user = User.create(user_params)
     if @user.save
       api_key = make_api_key
-      @user.update(api_key: api_key) # update api key
+      @user.update(api_key: api_key)
 
       UserActivatorMailer.inform(@user).deliver_now
       session[:user_id] = @user.id
@@ -40,6 +40,10 @@ class UsersController < ApplicationController
       flash.now.alert = "Please try again"
       render :new
     end
+  end
+
+  def activate
+    @user = UserService.new(params[:id]).update_user(params[:activation])
   end
 
   private
