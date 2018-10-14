@@ -3,7 +3,8 @@ require 'rails_helper'
 describe "users api endpoints" do
   context "GET /api/v1/users" do
     it "returns a list of users" do
-      create_list(:user, 2)
+      create(:user)
+      create(:user, name: "Ray")
 
       get "/api/v1/users"
 
