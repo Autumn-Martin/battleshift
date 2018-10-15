@@ -1,7 +1,9 @@
 class ActivationController < ApplicationController
 
   def edit
-    @user = UserService.new(params[:id]).get_user # should also move to activation controller
+    # binding.pry
+    # @user = UserService.new(params[:id]).get_user
+    @user = User.find(params[:id]) # should also move to activation controller
     # @user = UserService.new(params[:id]).update_user(params[:activation]) # move to activation_controller
   end
 
