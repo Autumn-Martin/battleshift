@@ -42,11 +42,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def activate
-    @user = UserService.new(params[:id]).get_user # should also move to activation controller
-    # @user = UserService.new(params[:id]).update_user(params[:activation]) # move to activation_controller
-  end
-
   private
   def user_params
     params.require(:user).permit(:name, :email, :id, :password, :password_confirmation)
