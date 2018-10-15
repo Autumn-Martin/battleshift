@@ -27,13 +27,9 @@ module Api
         game = Game.create(game_attributes)
 
         render json: game
+      
       end
 
-      private
-
-      def game_params
-        params.permit(:player_1_board, :player_2_board, :player_1_turns, :player_2_turns, :current_turn)
-      end
     end
   end
 end
