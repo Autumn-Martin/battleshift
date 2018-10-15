@@ -26,6 +26,13 @@ class UsersController < ApplicationController
 
   def activate
     @user = User.find(params[:id])
+    if @user.api_key == params[:api_key]
+      @user.update(activation: "active")
+      flash["alert"] = "Thank you! Your account is now activated."
+      redirect_to dashboard_path
+    else
+      flash["alert"] = "Sorry, wrong key."
+    end
   end
 
   def create
