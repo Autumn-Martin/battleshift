@@ -6,9 +6,9 @@ describe 'user activation' do
     # allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
     # binding.pry
 
-    visit "/users/#{user.id}/activate"
-    save_and_open_page
-    expect(current_path).to eq(activation_path)
+    visit "/users/#{user.id}/activation/edit"
+    # save_and_open_page
+    expect(current_path).to eq(edit_activation_path)
     fill_in  :user_api_key, with: user.api_key
     click_on "Submit"
 

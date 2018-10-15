@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get '/dashboard', to: "dashboard#index"
 
   resources :users, only: [:show, :index, :edit, :update, :create]
-  get 'users/:id/activate', to: "activation#edit", as: "edit_activation"
+  get 'users/:id/activation/edit', to: "activation#edit", as: "edit_activation"
   patch 'users/:id/activate', to: "activation#update", as: "activation"
 
   namespace :api do
