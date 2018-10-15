@@ -24,6 +24,10 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  def activate
+    @user = User.find(params[:id])
+  end
+
   def create
     @user = User.create(user_params)
     if @user.save
