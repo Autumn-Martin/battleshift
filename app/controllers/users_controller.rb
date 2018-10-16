@@ -33,6 +33,7 @@ class UsersController < ApplicationController
       redirect_to dashboard_path
     else
       flash["alert"] = "Sorry, wrong key."
+      redirect_to dashboard_path
     end
   end
 
