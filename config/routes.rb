@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show, :index, :edit, :update, :create]
   get 'users/:id/activate', to: "users#activate", as: "activate"
-  patch 'users/:id/activate', to: "users#activate", as: "activation"
+  # patch 'users/:id/activate', to: "users#activate", as: "activation"
 
 
   namespace :api do
