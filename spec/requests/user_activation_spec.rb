@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe 'PATCH to user activaiton path' do
-  subject { patch activate_path(user), params: { key: user_api_key } }
+describe 'PATCH to user activation path' do
+  subject { get activate_path(user), params: { key: user_api_key } }
 
   context 'given a valid user with an api key' do
     let!(:user) { create(:user) }
