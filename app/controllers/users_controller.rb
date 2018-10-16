@@ -26,8 +26,7 @@ class UsersController < ApplicationController
 
   def activate
     @user = User.find(params[:id])
-    if @user.api_key == params[:api_key]
-      # binding.pry
+    if @user.api_key == params[:key]
       @user.update!(activation: "active")
       flash["alert"] = "Thank you! Your account is now activated."
       redirect_to dashboard_path
