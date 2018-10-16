@@ -6,14 +6,17 @@ Rails.application.routes.draw do
   get '/dashboard', to: "dashboard#index"
 
   resources :users, only: [:show, :index, :edit, :update, :create]
-  get 'users/:id/activate', to: "users#activate", as: "activate_user"
+  patch 'users/:id/activate', to: "users#activate", as: "activate"
+  # patch 'users/:id/activate', to: "users#activate", as: "activation"
+
 
   namespace :api do
     namespace :v1 do
-      resources :games, only: [:show] do
+      resources :games, only: [:show, :create] do
         post "/shots", to: "games/shots#create"
-
+        resources :ships, only: [:index]
       end
+
       resources :users, only: [:index, :show, :update]
 
     end

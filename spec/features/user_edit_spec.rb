@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'user edit' do
-   it 'should edit a users info' do
+   xit 'should edit a users info' do
      VCR.use_cassette("before_edit_users") do
        visit "/users"
      end

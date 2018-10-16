@@ -24,6 +24,18 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  def activate
+    @user = User.find(params[:id])
+    if @user.api_key == params[:key]
+      @user.update!(activation: "active")
+      flash["alert"] = "Thank you! Your account is now activated."
+      redirect_to dashboard_path
+    else
+      flash["alert"] = "Sorry, wrong key."
+      redirect_to dashboard_path
+    end
+  end
+
   def create
     @user = User.create(user_params)
     if @user.save
@@ -40,10 +52,6 @@ class UsersController < ApplicationController
       flash.now.alert = "Please try again"
       render :new
     end
-  end
-
-  def activate
-    @user = UserService.new(params[:id]).update_user(params[:activation])
   end
 
   private
