@@ -14,8 +14,12 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :games, only: [:show, :create] do
         post "/shots", to: "games/shots#create"
-        resources :ships, only: [:index]
+        resources :ships, only: [:index, :create]
       end
+      # api_v1_game_ships GET   /api/v1/games/:game_id/ships(.:format)     api/v1/ships#index
+      #
+      # Started POST "/api/v1/games/3/ships" for 127.0.0.1 at 2018-10-16 14:53:19 -0600
+
 
       resources :users, only: [:index, :show, :update]
 
