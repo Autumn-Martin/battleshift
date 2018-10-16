@@ -1,10 +1,31 @@
 require 'rails_helper'
 
-describe 'User is activated' do
-  it 'works' do
-    user = create(:user)
-    patch activate_path(user), params: { key: user.api_key }
-    user.reload
-    expect(user.activation).to eq("active")
+describe 'PATCH to user activaiton path' do
+  subject { patch activate_path(user), params: { key: user_api_key } }
+
+  context 'given a valid user with an api key' do
+    let!(:user) { create(:user) }
+    let!(:user_api_key) { user.api_key }
+
+    it 'activates user' do
+      expect{subject}.to change{user.reload.activation}.from("inactive").to("active")
+    end
+
+    it 'redirects to the dashboard' do
+      expect(subject).to redirect_to(dashboard_path)
+    end
+  end
+
+  context 'given a valid user with an invalid api key' do
+    let!(:user) { create(:user) }
+    let!(:user_api_key) { 'invalid' }
+
+    it 'does not activate user' do
+      expect{subject}.to_not change{user.reload.activation}
+    end
+
+    it 'still redirects to dashboard' do
+      expect(subject).to redirect_to(dashboard_path)
+    end
   end
 end

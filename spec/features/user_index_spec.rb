@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'user index' do
-  it 'should show guest all users info' do
+  xit 'should show guest all users info' do
     VCR.use_cassette("all_users") do
       visit "/users"
     end
