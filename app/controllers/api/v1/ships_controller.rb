@@ -35,6 +35,7 @@ class Api::V1::ShipsController < ApiController
                     ship: ship_2,
                     start_space: ship_params[:start_space],
                     end_space: ship_params[:end_space]}
+                    
       ShipPlacer.new(ship_2_info)
     end
 

@@ -1,4 +1,5 @@
 class Shooter
+  attr_reader :target
   def initialize(board:, target:)
     @board     = board
     @target    = target
