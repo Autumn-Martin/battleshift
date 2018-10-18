@@ -8,17 +8,16 @@ module Api
           # if request.headers["X-API-Key"] ==
           # binding.pry
           if valid_players
-            # binding.pry
             turn_processor = TurnProcessor.new(@game, params[:shot][:target])
 
             turn_processor.run!
+            # binding.pry
 
             render json: @game, message: turn_processor.message
           end
         end
 
         def valid_players
-          # binding.pry
           # if request.headers["X-API-Key"] == @game.[:player_1_api_key]
           if @game.current_turn == "player_1"
             @game[:player_1_api_key] = request.headers["X-API-Key"]
