@@ -34,10 +34,15 @@ class TurnProcessor
   attr_reader :game, :target
 
   def attack_opponent
-    result = Shooter.fire!(board: opponent_board, target: target)
-    # binding.pry
-    @messages << "Your shot resulted in a #{result}."
-    game.player_1_turns += 1
+    if opponent_board.valid_space?(target) == true
+      result = Shooter.fire!(board: opponent_board, target: target)
+      # binding.pry
+      @messages << "Your shot resulted in a #{result}."
+      game.player_1_turns += 1
+    else
+      @messages << "Invalid coordinates"
+    end
+
   end
 
   # def ai_attack_back
@@ -56,7 +61,9 @@ class TurnProcessor
       game.player_2_board
     elsif game.current_turn == "player_2"
       game.player_1_board
-    end 
+    end
   end
+
+
 
 end

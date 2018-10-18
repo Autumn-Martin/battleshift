@@ -202,5 +202,16 @@ class Board
   def first_column?(coordinate)
     get_column(coordinate) == "1"
   end
-end
 
+
+  def all_coordinates
+    @board.flatten.map do |row|
+      row.keys
+    end.flatten
+  end
+
+  def valid_space?(coordinate)
+    all_coordinates.any? {|space| space == coordinate}
+  end
+
+end

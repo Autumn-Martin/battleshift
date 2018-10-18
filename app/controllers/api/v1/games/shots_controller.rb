@@ -16,18 +16,24 @@ module Api
               turn_processor = TurnProcessor.new(@game, params[:shot][:target])
 
               turn_processor.run!
-              # binding.pry
 
-              render json: @game, message: turn_processor.message
+              if turn_processor.message == "Invalid coordinates"
+                render json: @game, status: 400, message: turn_processor.message
+              else
+                render json: @game, message: turn_processor.message
+              end
+              # binding.pry
             elsif (request.headers["X-API-Key"] == @game[:player_2_api_key]) && (@game.current_turn == "player_2")
 
                 turn_processor = TurnProcessor.new(@game, params[:shot][:target])
 
                 turn_processor.run!
-                # binding.pry
-
+                # binding.pryu
+              if turn_processor.message == "Invalid coordinates"
+                render json: @game, status: 400, message: turn_processor.message
+              else
                 render json: @game, message: turn_processor.message
-
+              end
             else
               render status: 400, json: @game, message: "Invalid move. It's your opponent's turn"
             end
