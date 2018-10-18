@@ -18,19 +18,24 @@ module Api
               turn_processor.run!
 
               if turn_processor.message == "Invalid coordinates"
+
                 render json: @game, status: 400, message: turn_processor.message
+                @game.current_turn = "player_1"
+                turn_processor = TurnProcessor.new(@game, params[:shot][:target])
+                turn_processor.run!
               else
                 render json: @game, message: turn_processor.message
               end
-              # binding.pry
             elsif (request.headers["X-API-Key"] == @game[:player_2_api_key]) && (@game.current_turn == "player_2")
 
                 turn_processor = TurnProcessor.new(@game, params[:shot][:target])
 
                 turn_processor.run!
-                # binding.pryu
               if turn_processor.message == "Invalid coordinates"
                 render json: @game, status: 400, message: turn_processor.message
+                @game.current_turn = "player_2"
+                turn_processor = TurnProcessor.new(@game, params[:shot][:target])
+                turn_processor.run!
               else
                 render json: @game, message: turn_processor.message
               end

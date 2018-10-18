@@ -34,9 +34,9 @@ class TurnProcessor
   attr_reader :game, :target
 
   def attack_opponent
-    if opponent_board.valid_space?(target) == true
+    if opponent_board.valid_space?(target)
+      binding.pry
       result = Shooter.fire!(board: opponent_board, target: target)
-      # binding.pry
       @messages << "Your shot resulted in a #{result}."
       game.player_1_turns += 1
     else
