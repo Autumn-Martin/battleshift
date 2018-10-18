@@ -4,32 +4,57 @@ module Api
       class ShotsController < ApiController
         def create
           @game = Game.find(params[:game_id])
+          set_api_keys
+          # binding.pry
           # binding.pry #request.headers["X-API-Key"] #game.attributes.keys #game.current_turn => player_1
           # if request.headers["X-API-Key"] ==
           # binding.pry
-          if valid_players
-            turn_processor = TurnProcessor.new(@game, params[:shot][:target])
-
-            turn_processor.run!
+          # if valid_players
             # binding.pry
+            if (request.headers["X-API-Key"] == @game[:player_1_api_key]) && (@game.current_turn == "player_1")
 
-            render json: @game, message: turn_processor.message
-          end
+              turn_processor = TurnProcessor.new(@game, params[:shot][:target])
+
+              turn_processor.run!
+              # binding.pry
+
+              render json: @game, message: turn_processor.message
+            elsif (request.headers["X-API-Key"] == @game[:player_2_api_key]) && (@game.current_turn == "player_2")
+
+                turn_processor = TurnProcessor.new(@game, params[:shot][:target])
+
+                turn_processor.run!
+                # binding.pry
+
+                render json: @game, message: turn_processor.message
+
+            else
+              render status: 400, json: @game, message: "Invalid move. It's your opponent's turn"
+            end
+          # end
         end
 
-        def valid_players
-          # if request.headers["X-API-Key"] == @game.[:player_1_api_key]
-          if @game.current_turn == "player_1"
+        # def valid_players
+        #   # if request.headers["X-API-Key"] == @game.[:player_1_api_key]
+        #   if @game.current_turn == "player_1"
+        #     @game[:player_1_api_key] = request.headers["X-API-Key"]
+        #     return true
+        #   elsif @game.current_turn == "player_2"
+        #     @game[:player_2_api_key] = request.headers["X-API-Key"]
+        #     return true
+        #   else
+        #     return false
+        #   end
+        # end
+        private
+
+        def set_api_keys
+          if @game[:player_1_api_key].nil?
             @game[:player_1_api_key] = request.headers["X-API-Key"]
-            return true
-          elsif @game.current_turn == "player_2"
+          elsif @game[:player_2_api_key].nil? && request.headers["X-API-Key"] != @game[:player_1_api_key]
             @game[:player_2_api_key] = request.headers["X-API-Key"]
-            return true
-          else
-            return false
           end
         end
-
 
       end
     end
