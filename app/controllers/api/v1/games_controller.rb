@@ -22,12 +22,12 @@ module Api
           player_2_board: player_2_board,
           player_1_turns: 0,
           player_2_turns: 0,
-          current_turn: "challenger"
+          current_turn: "player_1"
         }
         game = Game.create(game_attributes)
 
         render json: game
-      
+
       end
 
     end
