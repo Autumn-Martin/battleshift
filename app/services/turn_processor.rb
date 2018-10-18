@@ -38,7 +38,6 @@ class TurnProcessor
     else
       @messages << "Invalid coordinates"
     end
-
   end
 
   # def ai_attack_back
@@ -47,10 +46,10 @@ class TurnProcessor
   #   game.player_2_turns += 1
   # end
 
-  def player
-    game.current_player ||= Player.new(game.player_1_board)
-
-  end
+  # def player
+  #   game.current_player ||= Player.new(game.player_1_board)
+  #
+  # end
 
   def opponent_board
     if game.current_turn == "player_1"
