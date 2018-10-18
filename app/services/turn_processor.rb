@@ -3,9 +3,6 @@ class TurnProcessor
     @game   = game
     @target = target
     @messages = []
-    # @api_key = api_key
-    # @current_player =
-    # run!
   end
 
   def run!
@@ -62,7 +59,5 @@ class TurnProcessor
       game.player_1_board
     end
   end
-
-
 
 end

@@ -5,12 +5,8 @@ module Api
         def create
           @game = Game.find(params[:game_id])
           set_api_keys
-          # binding.pry
           # binding.pry #request.headers["X-API-Key"] #game.attributes.keys #game.current_turn => player_1
-          # if request.headers["X-API-Key"] ==
-          # binding.pry
-          # if valid_players
-            # binding.pry
+
             if (request.headers["X-API-Key"] == @game[:player_1_api_key]) && (@game.current_turn == "player_1")
 
               turn_processor = TurnProcessor.new(@game, params[:shot][:target])
