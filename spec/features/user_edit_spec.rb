@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 describe 'user edit' do
-   xit 'should edit a users info' do
-     VCR.use_cassette("before_edit_users") do
+  it 'should edit a users info' do
+    VCR.use_cassette("before_edit_users") do
        visit "/users"
-     end
+    end
 
     VCR.use_cassette("edit_user") do
       within(first(".user")) do
@@ -12,20 +12,18 @@ describe 'user edit' do
       end
     end
 
-     expect(current_path).to eq("/users/1/edit")
-     expect(page).to have_content("User email")
-     expect(page).to have_button("Save")
+    expect(current_path).to eq("/users/1/edit")
+    expect(page).to have_content("User email")
+    expect(page).to have_button("Save")
 
-     fill_in :user_email, with: "josiah@example.com"
+    fill_in :user_email, with: "josiah@example.com"
 
-     VCR.use_cassette("update_users") do
+    VCR.use_cassette("update_users") do
        click_on "Save"
-     end
+    end
 
-     # click_on "Save"
-
-     expect(current_path).to eq("/users")
-     expect(page).to have_content("Successfully updated Josiah Bartlet.")
-     expect(page).to have_content("josiah@example.com")
+    expect(current_path).to eq("/users")
+    expect(page).to have_content("Successfully updated Josiah Bartlet.")
+    expect(page).to have_content("josiah@example.com")
   end
 end
