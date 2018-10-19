@@ -1,15 +1,14 @@
 class TurnProcessor
+
   def initialize(game, target)
     @game   = game
     @target = target
     @messages = []
-    # @api_key = api_key
-    # @current_player =
-    # run!
   end
 
   def run!
     begin
+      # attack_opponent unless game.winner != nil
       attack_opponent
       # ai_attack_back
       #swap_player
@@ -34,10 +33,23 @@ class TurnProcessor
   attr_reader :game, :target
 
   def attack_opponent
-    result = Shooter.fire!(board: opponent_board, target: target)
-    # binding.pry
-    @messages << "Your shot resulted in a #{result}."
-    game.player_1_turns += 1
+
+    if opponent_board.valid_space?(target)
+      result = Shooter.fire!(board: opponent_board, target: target)
+      if result.include? ("sunk")
+        opponent_board.damage
+      end
+      @messages << "Your shot resulted in a #{result}."
+      game.player_1_turns += 1
+      if opponent_board.board_health < 1
+        @messages << "Game over."
+        game[:winner] = current_player_email
+        game.save!
+      end
+
+    else
+      @messages << "Invalid coordinates"
+    end
   end
 
   # def ai_attack_back
@@ -46,17 +58,26 @@ class TurnProcessor
   #   game.player_2_turns += 1
   # end
 
-  def player
-    game.current_player ||= Player.new(game.player_1_board)
-
-  end
+  # def player
+  #   game.current_player ||= Player.new(game.player_1_board)
+  #
+  # end
 
   def opponent_board
     if game.current_turn == "player_1"
       game.player_2_board
     elsif game.current_turn == "player_2"
       game.player_1_board
-    end 
+    end
   end
+
+  def current_player_email
+    if game.current_turn == "player_1"
+      User.find_by(api_key: game.player_1_api_key).email
+    elsif game.current_turn == "player_2"
+      User.find_by(api_key: game.player_2_api_key).email
+    end
+  end
+
 
 end

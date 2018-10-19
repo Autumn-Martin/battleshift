@@ -8,10 +8,20 @@ class Space
   end
 
   def attack!
-
     @status = if contents && not_attacked?
                 contents.attack!
-                "Hit"
+                if contents.is_sunk?
+                  "Hit. Battleship sunk"
+                  # elsif -- "Your shot resulted in a Hit. Battleship sunk. Game over."
+
+                  # unless contents.damage == 10
+                  #   "Game Over"
+                  # end
+
+                else
+                  #@board.hit
+                  "Hit"
+                end
               else
                 "Miss"
               end
@@ -28,4 +38,5 @@ class Space
   def not_attacked?
     status == "Not Attacked"
   end
+
 end

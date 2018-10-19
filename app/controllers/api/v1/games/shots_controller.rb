@@ -1,62 +1,55 @@
-module Api
-  module V1
-    module Games
-      class ShotsController < ApiController
-        def create
-          @game = Game.find(params[:game_id])
-          set_api_keys
-          # binding.pry
-          # binding.pry #request.headers["X-API-Key"] #game.attributes.keys #game.current_turn => player_1
-          # if request.headers["X-API-Key"] ==
-          # binding.pry
-          # if valid_players
-            # binding.pry
-            if (request.headers["X-API-Key"] == @game[:player_1_api_key]) && (@game.current_turn == "player_1")
+class Api::V1::Games::ShotsController < ApiController
+  before_action :find_game, :verify_players, :verify_turn, :check_for_win
 
-              turn_processor = TurnProcessor.new(@game, params[:shot][:target])
+  def create
+    turn_processor = TurnProcessor.new(@game, params[:shot][:target])
+    turn_processor.run!
 
-              turn_processor.run!
-              # binding.pry
+    find_game
 
-              render json: @game, message: turn_processor.message
-            elsif (request.headers["X-API-Key"] == @game[:player_2_api_key]) && (@game.current_turn == "player_2")
-
-                turn_processor = TurnProcessor.new(@game, params[:shot][:target])
-
-                turn_processor.run!
-                # binding.pry
-
-                render json: @game, message: turn_processor.message
-
-            else
-              render status: 400, json: @game, message: "Invalid move. It's your opponent's turn"
-            end
-          # end
-        end
-
-        # def valid_players
-        #   # if request.headers["X-API-Key"] == @game.[:player_1_api_key]
-        #   if @game.current_turn == "player_1"
-        #     @game[:player_1_api_key] = request.headers["X-API-Key"]
-        #     return true
-        #   elsif @game.current_turn == "player_2"
-        #     @game[:player_2_api_key] = request.headers["X-API-Key"]
-        #     return true
-        #   else
-        #     return false
-        #   end
-        # end
-        private
-
-        def set_api_keys
-          if @game[:player_1_api_key].nil?
-            @game[:player_1_api_key] = request.headers["X-API-Key"]
-          elsif @game[:player_2_api_key].nil? && request.headers["X-API-Key"] != @game[:player_1_api_key]
-            @game[:player_2_api_key] = request.headers["X-API-Key"]
-          end
-        end
-
-      end
+    if turn_processor.message == "Invalid coordinates"
+      render json: @game, status: 400, message: turn_processor.message
+      @game.current_turn = "player_1"
+      turn_processor = TurnProcessor.new(@game, params[:shot][:target])
+      turn_processor.run!
+      find_game
+    # elsif turn_processor.message
+    #   render json: @game, status: 400, message: turn_processor.message
+    else
+      render json: @game, message: turn_processor.message
     end
   end
+
+  private
+
+    def verify_turn
+      render json: @game, status: 400, message: "Invalid move. It's your opponent's turn" unless @game.current_turn == current_player
+    end
+
+    def find_game
+      @game = Game.find(params[:game_id])
+    end
+
+    def current_player
+      if request.headers["X-API-Key"] == @game.player_1_api_key
+        "player_1"
+      elsif request.headers["X-API-Key"] == @game.player_2_api_key
+        "player_2"
+      end
+    end
+
+    def check_for_win
+      if @game.winner
+        # "Invalid move. Game over."
+        # binding.pry
+        render json: @game, status: 400, message: "Invalid move. Game over."
+      end
+    end
+
+    def verify_players
+      unless request.headers["X-API-Key"] == @game.player_1_api_key || request.headers["X-API-Key"] == @game.player_2_api_key
+        render json: @game, status: 401, message: "Unauthorized"
+      end
+    end
+
 end
