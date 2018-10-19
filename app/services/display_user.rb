@@ -16,5 +16,4 @@ class DisplayUser
     @user_data[:id]
   end
 
-
 end
