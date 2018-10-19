@@ -28,7 +28,7 @@ describe "Api::V1::Shots" do
 
       game = JSON.parse(response.body, symbolize_names: true)
 
-      expected_messages = "Your shot resulted in a Hit. The computer's shot resulted in a Miss."
+      expected_messages = "Your shot resulted in a Hit."
       player_2_targeted_space = game[:player_2_board][:rows].first[:data].first[:status]
 
 
@@ -48,7 +48,7 @@ describe "Api::V1::Shots" do
 
       game = JSON.parse(response.body, symbolize_names: true)
 
-      expected_messages = "Your shot resulted in a Miss. The computer's shot resulted in a Miss."
+      expected_messages = "Your shot resulted in a Miss."
       player_2_targeted_space = game[:player_2_board][:rows].first[:data].first[:status]
 
 
@@ -66,7 +66,7 @@ describe "Api::V1::Shots" do
       post "/api/v1/games/#{game.id}/shots", params: json_payload, headers: headers
 
       game = JSON.parse(response.body, symbolize_names: true)
-      expect(game[:message]).to eq "Invalid coordinates."
+      expect(game[:message]).to eq "Invalid coordinates"
     end
 
   end

@@ -25,12 +25,13 @@ group :development, :test do
   gem 'capybara'
   gem 'pry'
   gem 'launchy'
+  gem 'shoulda-matchers'
 end
 
 group :test do
   gem 'simplecov'
-  # gem 'vcr'
-  # gem 'webmock'
+  gem 'vcr'
+  gem 'webmock'
 end
 
 group :development do
