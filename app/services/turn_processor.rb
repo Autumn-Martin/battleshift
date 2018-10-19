@@ -1,4 +1,5 @@
 class TurnProcessor
+
   def initialize(game, target)
     @game   = game
     @target = target
@@ -7,6 +8,7 @@ class TurnProcessor
 
   def run!
     begin
+      # attack_opponent unless game.winner != nil
       attack_opponent
       # ai_attack_back
       #swap_player
@@ -31,10 +33,20 @@ class TurnProcessor
   attr_reader :game, :target
 
   def attack_opponent
+
     if opponent_board.valid_space?(target)
       result = Shooter.fire!(board: opponent_board, target: target)
+      if result.include? ("sunk")
+        opponent_board.damage
+      end
       @messages << "Your shot resulted in a #{result}."
       game.player_1_turns += 1
+      if opponent_board.board_health < 1
+        @messages << "Game over."
+        game[:winner] = current_player_email
+        game.save!
+      end
+
     else
       @messages << "Invalid coordinates"
     end
@@ -58,5 +70,14 @@ class TurnProcessor
       game.player_1_board
     end
   end
+
+  def current_player_email
+    if game.current_turn == "player_1"
+      User.find_by(api_key: game.player_1_api_key).email
+    elsif game.current_turn == "player_2"
+      User.find_by(api_key: game.player_2_api_key).email
+    end
+  end
+
 
 end

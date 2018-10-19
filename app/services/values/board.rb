@@ -1,10 +1,16 @@
 class Board
   attr_reader :length,
-              :board
+              :board,
+              :board_health
 
   def initialize(length)
     @length = length
     @board = create_grid
+    @board_health = 2
+  end
+
+  def damage
+    @board_health -= 1
   end
 
   def get_row_letters
@@ -202,7 +208,6 @@ class Board
   def first_column?(coordinate)
     get_column(coordinate) == "1"
   end
-
 
   def all_coordinates
     @board.flatten.map do |row|
