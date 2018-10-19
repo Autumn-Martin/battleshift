@@ -30,7 +30,6 @@ module Api
         game = Game.create(game_attributes)
 
         render json: game
-
       end
 
     end
