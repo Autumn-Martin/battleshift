@@ -8,20 +8,12 @@ class TurnProcessor
 
   def run!
     begin
-      # attack_opponent unless game.winner != nil
       attack_opponent
-      # ai_attack_back
-      #swap_player
-      if game.current_turn == "player_1"
-        game.current_turn = "player_2"
-      elsif game.current_turn == "player_2"
-        game.current_turn = "player_1"
-      end
+      switch_players
       game.save!
     rescue InvalidAttack => e
       @messages << e.message
     end
-
   end
 
   def message
@@ -32,36 +24,43 @@ class TurnProcessor
 
   attr_reader :game, :target
 
+  def switch_players
+    if game.current_turn == "player_1"
+      game.current_turn = "player_2"
+    elsif game.current_turn == "player_2"
+      game.current_turn = "player_1"
+    end
+  end
+
   def attack_opponent
-
     if opponent_board.valid_space?(target)
-      result = Shooter.fire!(board: opponent_board, target: target)
-      if result.include? ("sunk")
-        opponent_board.damage
-      end
-      @messages << "Your shot resulted in a #{result}."
-      game.player_1_turns += 1
-      if opponent_board.board_health < 1
-        @messages << "Game over."
-        game[:winner] = current_player_email
-        game.save!
-      end
-
+      make_play
+      game_over?
     else
       @messages << "Invalid coordinates"
     end
   end
 
-  # def ai_attack_back
-  #   result = AiSpaceSelector.new(player.board).fire!
-  #   @messages << "The computer's shot resulted in a #{result}."
-  #   game.player_2_turns += 1
-  # end
+  def make_play
+    result = Shooter.fire!(board: opponent_board, target: target)
+    acquire_points(result)
+    @messages << "Your shot resulted in a #{result}."
+    game.player_1_turns += 1
+  end
 
-  # def player
-  #   game.current_player ||= Player.new(game.player_1_board)
-  #
-  # end
+  def acquire_points(result)
+    if result.include? ("sunk")
+      opponent_board.damage
+    end
+  end
+
+  def game_over?
+    if opponent_board.board_health < 1
+      @messages << "Game over."
+      game[:winner] = current_player_email
+      game.save!
+    end
+  end
 
   def opponent_board
     if game.current_turn == "player_1"
@@ -78,6 +77,5 @@ class TurnProcessor
       User.find_by(api_key: game.player_2_api_key).email
     end
   end
-
 
 end

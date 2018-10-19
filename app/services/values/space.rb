@@ -12,14 +12,7 @@ class Space
                 contents.attack!
                 if contents.is_sunk?
                   "Hit. Battleship sunk"
-                  # elsif -- "Your shot resulted in a Hit. Battleship sunk. Game over."
-
-                  # unless contents.damage == 10
-                  #   "Game Over"
-                  # end
-
                 else
-                  #@board.hit
                   "Hit"
                 end
               else
