@@ -1,6 +1,7 @@
 class Api::V1::ShipsController < ApiController
 
   def create
+    # binding.pry
     @game = Game.find_by(id: params[:game_id])
     ship_1_placer.run
     ship_2_placer.run
@@ -12,7 +13,7 @@ class Api::V1::ShipsController < ApiController
   private
 
     def ship_params
-      params.require(:ship).permit(:length, :damage, :start_space, :end_space, :ship_size)
+      params.require(:ship).permit(:start_space, :end_space, :ship_size)
     end
 
     def ship_1
