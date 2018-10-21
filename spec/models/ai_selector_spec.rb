@@ -2,6 +2,7 @@ require 'rails_helper'
 
 describe 'ai_space_selector' do
   it 'exists' do
+
     board = Board.new(2)
     ai = AiSpaceSelector.new(board)
     ai.fire!
